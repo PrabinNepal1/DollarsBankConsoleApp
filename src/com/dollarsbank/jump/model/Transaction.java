@@ -8,12 +8,14 @@ public class Transaction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	public enum Type {WITHDRAWL, DEPOSIT, INITIAL_DEPOSIT}
+	
 	private String userId;
 	private String description;
-	private String transactionType;
+	private Type transactionType;
 	private LocalDateTime ldt = LocalDateTime.now();
 	
-	public Transaction(String userId, String description, String transactionType, LocalDateTime ldt) {
+	public Transaction(String userId, String description, Type transactionType, LocalDateTime ldt) {
 		super();
 		this.userId = userId;
 		this.description = description;
@@ -29,7 +31,7 @@ public class Transaction implements Serializable {
 		return description;
 	}
 
-	public String getTransactionType() {
+	public Type getTransactionType() {
 		return transactionType;
 	}
 
@@ -45,7 +47,7 @@ public class Transaction implements Serializable {
 		this.description = description;
 	}
 
-	public void setTransactionType(String transactionType) {
+	public void setTransactionType(Type transactionType) {
 		this.transactionType = transactionType;
 	}
 
