@@ -8,15 +8,15 @@ public class Customer implements Serializable {
 	
 	private String name, address, userId, password;
 	
-	private double depositAmount;
+	private Account account;
 
-	public Customer(String name, String address, String userId, String password, double depositAmount) {
+	public Customer(String name, String address, String userId, String password, String phoneNo, Account account) {
 		super();
 		this.name = name;
 		this.address = address;
-		this.userId = userId;
+		this.userId = userId;;
 		this.password = password;
-		this.depositAmount = depositAmount;
+		this.account = account;
 	}
 
 	public String getName() {
@@ -35,8 +35,8 @@ public class Customer implements Serializable {
 		return password;
 	}
 
-	public double getDepositAmount() {
-		return depositAmount;
+	public Account getAccount() {
+		return account;
 	}
 
 	public void setName(String name) {
@@ -55,8 +55,8 @@ public class Customer implements Serializable {
 		this.password = password;
 	}
 
-	public void setDepositAmount(double depositAmount) {
-		this.depositAmount = depositAmount;
+	public void setAccount(double depositAmount) {
+		this.account = new Account(depositAmount);
 	}
 	
 	
