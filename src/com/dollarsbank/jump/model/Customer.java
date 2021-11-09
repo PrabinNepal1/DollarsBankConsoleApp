@@ -6,7 +6,7 @@ public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String name, address, userId, password;
+	private String name, address, userId, password, phoneNo;
 	
 	private Account account;
 
@@ -16,6 +16,7 @@ public class Customer implements Serializable {
 		this.address = address;
 		this.userId = userId;;
 		this.password = password;
+		this.phoneNo = phoneNo;
 		this.account = account;
 	}
 
@@ -34,10 +35,15 @@ public class Customer implements Serializable {
 	public String getPassword() {
 		return password;
 	}
+	
+	public String getPhoneNo() {
+		return phoneNo;
+	}
 
 	public Account getAccount() {
 		return account;
 	}
+	
 
 	public void setName(String name) {
 		this.name = name;
@@ -53,6 +59,10 @@ public class Customer implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setPhoneNo(String phone) {
+		this.phoneNo = phone;
 	}
 
 	public void setAccount(double depositAmount) {
