@@ -128,13 +128,12 @@ public class DollarsBankController {
 					.filter(c ->(c.getUserId().equals(userId) && c.getPassword().equals(password)))
 					.findAny();
 		
-		currentCustomer = found.get();
-		
-		if(currentCustomer == null) {
-			return false;
+		if(found.isPresent()) {
+			currentCustomer = found.get();
+			return true;
 		}
 		
-		return true;
+		return false;
 			
 
 	}
@@ -202,15 +201,13 @@ public class DollarsBankController {
 		Optional<Customer> receiverFound = customerList.stream()
 				.filter(c -> c.getUserId().equals(userId)).findAny();
 		
-		Customer receiver = receiverFound.get();
-		
-		if (receiver == null) {
+		if (receiverFound.isPresent() && (!userId.equals(currentCustomer.getUserId()))) {
 			
-			transferReceiver = receiver;
-			return false;
+			transferReceiver = receiverFound.get();
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	public boolean transferFund(double amt){
@@ -275,7 +272,7 @@ public class DollarsBankController {
 		
 		for(int i=0; i < transactionsCount; i++) {
 			
-			System.out.println(i + ". " + transList.get(i));
+			System.out.println(i + ". " + transList.get(i).getDescription());
 			
 			if (i==4) {
 				break;

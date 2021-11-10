@@ -8,7 +8,7 @@ public class Transaction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public enum Type {WITHDRAWL, DEPOSIT, INITIAL_DEPOSIT, TRANSFER}
+	public enum Type {WITHDRAW, DEPOSIT, INITIAL_DEPOSIT, TRANSFER}
 	
 	private String description;
 	private Type transactionType;

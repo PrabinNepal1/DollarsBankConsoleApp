@@ -39,6 +39,9 @@ public class ConsolePrinterUtility {
 		else if(i==6) {
 			System.out.println("Initial Deposit Amount: ");
 		}
+		else if(i==7) {
+			System.out.println("Registration Sucessful. Please Login to continue!");
+		}
 	}
 	
 	public static void loginOutput(int i) {

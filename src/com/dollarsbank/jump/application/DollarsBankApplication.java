@@ -17,11 +17,12 @@ public class DollarsBankApplication {
 		
 		Scanner scan = new Scanner(System.in);
 		
-		while(true) {
+		boolean appUser = true;
+		
+		while(appUser) {
 			
 			ConsolePrinterUtility.initialOutput();
 			
-			try {
 				
 				int choice = Integer.parseInt(scan.nextLine());
 				if(choice ==1) {
@@ -105,12 +106,13 @@ public class DollarsBankApplication {
 					
 					controller.addCustomer(customer);
 					
-					
+					System.out.print(ColorsUtility.RESET);
+					ConsolePrinterUtility.registrationOutput(7);
 					
 				}
-				if(choice==2) {
-					
-					while(true) {
+				else if(choice==2) {
+					boolean logInPrompt = true;
+					while(logInPrompt) {
 						ConsolePrinterUtility.loginOutput(1);
 						System.out.print(ColorsUtility.GREEN);
 						String customerUserId = scan.nextLine();
@@ -121,144 +123,140 @@ public class DollarsBankApplication {
 						System.out.print(ColorsUtility.RESET);
 						
 						if(controller.checkLoginCreds(customerUserId, customerPassword)) {
-							while(true) {
+							boolean loggedIn = true;
+							while(loggedIn) {
 								ConsolePrinterUtility.validUserOutput();
-								try {
-									int userChoice = Integer.parseInt(scan.nextLine());
-									
-									if(userChoice == 1) {
-										while(true) {
-											ConsolePrinterUtility.depositOutput(1);
-											System.out.print(ColorsUtility.GREEN);
-											double depositAmount = Double.parseDouble(scan.nextLine());
-											if(depositAmount > 0) {
-												if(controller.deposit(depositAmount)) {
-													System.out.print(ColorsUtility.RESET);
-													ConsolePrinterUtility.depositOutput(2);
-													System.out.println(controller.currentBalance());
-													break;
-												}
-												else {
-													System.out.print(ColorsUtility.RESET);
-													ConsolePrinterUtility.depositOutput(3);
-												}
+						
+								int userChoice = Integer.parseInt(scan.nextLine());
+								
+								if(userChoice == 1) {
+									while(true) {
+										ConsolePrinterUtility.depositOutput(1);
+										System.out.print(ColorsUtility.GREEN);
+										double depositAmount = Double.parseDouble(scan.nextLine());
+										if(depositAmount > 0) {
+											if(controller.deposit(depositAmount)) {
+												System.out.print(ColorsUtility.RESET);
+												ConsolePrinterUtility.depositOutput(2);
+												System.out.println(controller.currentBalance());
+												break;
 											}
 											else {
 												System.out.print(ColorsUtility.RESET);
-												ConsolePrinterUtility.depositOutput(4);
-												
+												ConsolePrinterUtility.depositOutput(3);
 											}
-											
+										}
+										else {
+											System.out.print(ColorsUtility.RESET);
+											ConsolePrinterUtility.depositOutput(4);
 											
 										}
+										
+										
 									}
-									
-									if(userChoice == 2) {
-										while(true) {
-											ConsolePrinterUtility.withdrawOutput(1);	
-											System.out.print(ColorsUtility.GREEN);
-											double withdrawAmount = Double.parseDouble(scan.nextLine());
-											if(withdrawAmount > 0) {
-													if(controller.withdraw(withdrawAmount)) {
-													System.out.print(ColorsUtility.RESET);
-													ConsolePrinterUtility.withdrawOutput(2);
-													System.out.println(controller.currentBalance());
-													break;
-												}else {
-														System.out.print(ColorsUtility.RESET);
-														ConsolePrinterUtility.withdrawOutput(3);
-													}
-												
+								}
+								
+								else if(userChoice == 2) {
+									while(true) {
+										ConsolePrinterUtility.withdrawOutput(1);	
+										System.out.print(ColorsUtility.GREEN);
+										double withdrawAmount = Double.parseDouble(scan.nextLine());
+										if(withdrawAmount > 0) {
+												if(controller.withdraw(withdrawAmount)) {
+												System.out.print(ColorsUtility.RESET);
+												ConsolePrinterUtility.withdrawOutput(2);
+												System.out.println(controller.currentBalance());
+												break;
 											}else {
-												System.out.print(ColorsUtility.RESET);
-												ConsolePrinterUtility.withdrawOutput(4);
-												
-											}
+													System.out.print(ColorsUtility.RESET);
+													ConsolePrinterUtility.withdrawOutput(3);
+												}
+											
+										}else {
+											System.out.print(ColorsUtility.RESET);
+											ConsolePrinterUtility.withdrawOutput(4);
 											
 										}
+										
 									}
-									
-									if(userChoice == 3) {
+								}
+								
+								else if(userChoice == 3) {
+									while(true) {
+										String receiverUserId = "";
 										while(true) {
-											String receiverUserId = "";
-											while(true) {
-												
-												ConsolePrinterUtility.transferOutput(1);
-												System.out.print(ColorsUtility.GREEN);
-												receiverUserId = scan.nextLine();
-												
-												if(controller.isValidReceiver(receiverUserId)) {
-													System.out.print(ColorsUtility.RESET);
-													break;
-												}
-												else {
-													System.out.print(ColorsUtility.RESET);
-													ConsolePrinterUtility.transferOutput(3);
-												}
-												
-											}
 											
+											ConsolePrinterUtility.transferOutput(1);
+											System.out.print(ColorsUtility.GREEN);
+											receiverUserId = scan.nextLine();
 											
-											double transferAmount = 0;
-											while(true) {
-												ConsolePrinterUtility.transferOutput(2);
-												transferAmount = Double.parseDouble(scan.next());
-												
-												if(transferAmount > 0) {
-													System.out.print(ColorsUtility.RESET);
-													break;
-												}
-												else {
-													System.out.print(ColorsUtility.RESET);
-													ConsolePrinterUtility.transferOutput(6);
-												}
-											}
-											
-											if(controller.transferFund(transferAmount)) {
-												if(controller.transferFund(transferAmount)) {
-													System.out.print(ColorsUtility.RESET);
-													ConsolePrinterUtility.transferOutput(4);
-													System.out.println(controller.currentBalance());
-													break;
+											if(controller.isValidReceiver(receiverUserId)) {
+												System.out.print(ColorsUtility.RESET);
+												break;
 											}
 											else {
 												System.out.print(ColorsUtility.RESET);
-												ConsolePrinterUtility.transferOutput(7);
+												ConsolePrinterUtility.transferOutput(3);
 											}
 											
 										}
-								
+										
+										
+										double transferAmount = 0;
+										while(true) {
+											ConsolePrinterUtility.transferOutput(2);
+											System.out.print(ColorsUtility.GREEN);
+											transferAmount = Double.parseDouble(scan.nextLine());
+											
+											if(transferAmount > 0) {
+												System.out.print(ColorsUtility.RESET);
+												break;
+											}
+											else {
+												System.out.print(ColorsUtility.RESET);
+												ConsolePrinterUtility.transferOutput(6);
+											}
 										}
-									}
-									
-									if(userChoice == 4) {
 										
-										controller.getRecentTransaction();
+										if(controller.transferFund(transferAmount)) {
+												System.out.print(ColorsUtility.RESET);
+												ConsolePrinterUtility.transferOutput(4);
+												System.out.println(controller.currentBalance());
+												break;
+										}
+										else {
+											System.out.print(ColorsUtility.RESET);
+											ConsolePrinterUtility.transferOutput(7);
+										}
 										
-									}
 									
-									if(userChoice == 5) {
-										
-										controller.getCustomerInfo();
-									
+							
 									}
-									
-									if(userChoice == 6) {
-										System.out.println("You have signed out!");
-										break;
-										
-									}
-									
-									else {
-										
-										ConsolePrinterUtility.errorOutput(1);
-									}
+								}
 								
-								
-								}catch(Exception ex){
+								else if(userChoice == 4) {
 									
+									controller.getRecentTransaction();
+									
+								}
+								
+								else if(userChoice == 5) {
+									
+									controller.getCustomerInfo();
+								
+								}
+								
+								else if(userChoice == 6) {
+									
+									loggedIn = false;
+									logInPrompt = false;
+									System.out.println("You have signed out!");
+								}
+								
+								else {
 									ConsolePrinterUtility.errorOutput(1);
 								}
+								
 							}
 						}
 						else {
@@ -268,20 +266,21 @@ public class DollarsBankApplication {
 					}
 					
 				}
-				if(choice==3) {
+				else if(choice==3) {
+					appUser = false;
 					System.out.print(ColorsUtility.BLUE);
 					System.out.println("Thank you for using DollarsBank Application!");
-					break;
 				}
-			}
-			catch(Exception ex) {
-				ConsolePrinterUtility.errorOutput(1);
-			}
-			finally {
-				scan.close();
-			}
+				
+				else {
+					
+					ConsolePrinterUtility.errorOutput(4);
+					
+				}
 			
 		}
+		
+		scan.close();
 		
 	}
 
