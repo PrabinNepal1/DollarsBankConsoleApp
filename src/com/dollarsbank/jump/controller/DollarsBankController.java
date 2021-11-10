@@ -34,7 +34,7 @@ public class DollarsBankController {
 			String phoneNo = DataGenerationStubUtility.phoneNo[i];
 			Double initialDeposit = DataGenerationStubUtility.initialDeposit[i];
 			
-			Account account = new Account(initialDeposit);
+			Account account = addInitialTransaction(initialDeposit, customerId);
 			
 			Customer customer = new Customer(name, address, customerId, password, phoneNo, account);
 
@@ -44,23 +44,42 @@ public class DollarsBankController {
 		
 	}
 	
-	public boolean checkUserId(String id) {
+	public Account addInitialTransaction(double initialDeposit, String customerId) {
+		
+		Account account = new Account(initialDeposit);
+		
+		LocalDateTime timestamp = LocalDateTime.now();
+		
+		String depositDes = "Initial Deposit Amount In Account [" + customerId + "]\nBalance: "+ initialDeposit +" as on" + timestamp;
+		
+		Type transType =  Type.valueOf("DEPOSIT");
+		
+		Transaction transaction = new Transaction(depositDes, transType, timestamp);
+		
+		account.setTransactions(transaction);
+		
+		return account;
+		
+	}
+	
+	
+	public boolean validUserId(String id) {
 		for(int i=0; i <customerList.size(); i++) {
 			if(customerList.get(i).getUserId().equals(id)) {
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 		
 	}
 	
 	public boolean validPhoneNo(String phone) {
 		
-		if(phone.length() != 13) {
+		if(phone.length() != 12) {
 			return false;
 		}
 		
-		Pattern number = Pattern.compile("?([0-9]{3})?[-. ]?([0-9]{3})[-. ]?([0-9]{4}");
+		Pattern number = Pattern.compile("^(\\d{3}[-]?){2}\\d{4}$");
 		
 		Matcher match = number.matcher(phone);
 		
@@ -103,7 +122,7 @@ public class DollarsBankController {
 		customerList.add(customer);
 	}
 	
-	public boolean checkLoginCred(String userId, String password) {
+	public boolean checkLoginCreds(String userId, String password) {
 			
 		Optional<Customer> found = customerList.stream()
 					.filter(c ->(c.getUserId().equals(userId) && c.getPassword().equals(password)))
@@ -120,7 +139,7 @@ public class DollarsBankController {
 
 	}
 	
-	public boolean deposit(int amt) {
+	public boolean deposit(double amt) {
 		
 		int index = customerList.indexOf(currentCustomer);
 		
@@ -149,7 +168,7 @@ public class DollarsBankController {
 	}
 	
 	
-	public boolean withdraw(int amt) {
+	public boolean withdraw(double amt) {
 		
 		int index = customerList.indexOf(currentCustomer);
 		

@@ -17,18 +17,18 @@ public class ConsolePrinterUtility {
 	public static void registrationOutput(int i) {
 		
 		if(i==1) {
-			System.out.println(ColorsUtility.BLUE+ "+---------------------------+");
+			System.out.println(ColorsUtility.BLUE+ "+--------------------------------+");
 			System.out.println("| Enter Details For New Account! |");
-			System.out.println("+---------------------------+" + ColorsUtility.RESET);
+			System.out.println("+--------------------------------+" + ColorsUtility.RESET);
 			
-			System.out.println("Customer Name");
+			System.out.println("Customer Name:");
 		}
 		
 		else if(i==2) {
-			System.out.println("Customer Address: ");
+			System.out.println("Address: ");
 		}
 		else if(i==3) {
-			System.out.println("Customer Contact Number: ");	
+			System.out.println("Contact Number: ");	
 		}
 		else if(i==4) {
 			System.out.println("User ID: ");
@@ -98,13 +98,11 @@ public class ConsolePrinterUtility {
 			System.out.print("Whitdraw Successful! Current Balance is now: $");
 		}
 		else if(i==3) {
+			System.out.println(ColorsUtility.RED+"Invalid Withdraw Amount! Balance not suffiecient"+ ColorsUtility.RESET);
+			
+		}
+		else if(i==4) {
 			System.out.println(ColorsUtility.RED+"Withdraw Unsuccessful! Cannot enter an amount that is less than or equal to zero!"+ ColorsUtility.RESET);
-		}
-		else if(i==4) {
-			System.out.println(ColorsUtility.RED+"Invalid Withdraw Amount!"+ ColorsUtility.RESET);
-		}
-		else if(i==4) {
-			System.out.println(ColorsUtility.RED+"Withdraw Unsuccessful! Cannot withdraw an amount that is less than or equal to zero!"+ ColorsUtility.RESET);
 		}
 		
 	}
@@ -154,7 +152,7 @@ public class ConsolePrinterUtility {
 			System.out.println("User Id Unavailable. Please Enter A New One!"+ ColorsUtility.RESET);
 		}
 		else if(i==6) {
-			System.out.println("Phone numbers must possess 10 digits!"+ ColorsUtility.RESET);
+			System.out.println("Phone numbers must be xxx-xxx-xxxx"+ ColorsUtility.RESET);
 		}
 	}
 
