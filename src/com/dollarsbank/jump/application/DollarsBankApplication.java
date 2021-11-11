@@ -7,6 +7,7 @@ import com.dollarsbank.jump.model.Account;
 import com.dollarsbank.jump.model.Customer;
 import com.dollarsbank.jump.utility.ColorsUtility;
 import com.dollarsbank.jump.utility.ConsolePrinterUtility;
+import com.dollarsbank.jump.utility.FileStorageUtility;
 
 public class DollarsBankApplication {
 
@@ -270,6 +271,7 @@ public class DollarsBankApplication {
 					appUser = false;
 					System.out.print(ColorsUtility.BLUE);
 					System.out.println("Thank you for using DollarsBank Application!");
+					controller.writeToFile();
 				}
 				
 				else {

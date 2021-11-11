@@ -1,5 +1,6 @@
 package com.dollarsbank.jump.controller;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import com.dollarsbank.jump.model.Transaction;
 import com.dollarsbank.jump.model.Transaction.Type;
 import com.dollarsbank.jump.utility.ColorsUtility;
 import com.dollarsbank.jump.utility.DataGenerationStubUtility;
+import com.dollarsbank.jump.utility.FileStorageUtility;
 
 public class DollarsBankController {
 	
@@ -26,20 +28,29 @@ public class DollarsBankController {
 		
 		customerList = new ArrayList<Customer>();
 		
-		for (int i=0; i < DataGenerationStubUtility.name.length; i++) {
-			String name = DataGenerationStubUtility.name[i];
-			String address = DataGenerationStubUtility.address[i];
-			String customerId = DataGenerationStubUtility.userId[i];
-			String password = DataGenerationStubUtility.password[i];
-			String phoneNo = DataGenerationStubUtility.phoneNo[i];
-			Double initialDeposit = DataGenerationStubUtility.initialDeposit[i];
+		
+		File file = new File("resources/objectFile.txt");
+		
+		if(file.exists()) {
+			customerList = FileStorageUtility.readFromFile(file);
+		}
+		else {
 			
-			Account account = addInitialTransaction(initialDeposit, customerId);
-			
-			Customer customer = new Customer(name, address, customerId, password, phoneNo, account);
+			for (int i=0; i < DataGenerationStubUtility.name.length; i++) {
+				String name = DataGenerationStubUtility.name[i];
+				String address = DataGenerationStubUtility.address[i];
+				String customerId = DataGenerationStubUtility.userId[i];
+				String password = DataGenerationStubUtility.password[i];
+				String phoneNo = DataGenerationStubUtility.phoneNo[i];
+				Double initialDeposit = DataGenerationStubUtility.initialDeposit[i];
+				
+				Account account = addInitialTransaction(initialDeposit, customerId);
+				
+				Customer customer = new Customer(name, address, customerId, password, phoneNo, account);
 
-			customerList.add(customer);
-			
+				customerList.add(customer);
+				
+			}
 		}
 		
 	}
@@ -281,5 +292,10 @@ public class DollarsBankController {
 		}
 	}
 	
+	public void writeToFile() {
+		File file = new File("resources/objectFile.txt");
+		
+		FileStorageUtility.writeToFile(file, customerList);
+	}
 
 }
